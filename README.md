@@ -1,44 +1,62 @@
 # Rockvolution
 
-Juego incremental para Android donde una roca evoluciona al hacer taps.
+Rockvolution es ahora un juego 100% web con Phaser + TypeScript, empaquetado en Android con Capacitor.
 
-## Funcionalidades implementadas
+## Stack actual
 
-- Evolución por taps con niveles predefinidos:
-  - Nivel 1: Roca común (0 taps)
-  - Nivel 2: Roca con carbón (1,000 taps)
-  - Nivel 3: Roca con hierro (10,000 taps)
-  - Nivel 4: Roca con cobre (25,000 taps)
-  - Nivel 5: Roca con oro (50,000 taps)
-  - Nivel 6: Roca con diamante (100,000 taps)
-- Contador de taps y monedas.
-- Boosters en tienda:
-  - Tap x2 permanente
-  - Dinamita +100 taps instantáneo
-  - Tap x5 durante 10 minutos
-- Tienda para comprar:
-  - Boosters
-  - Skins de roca
-  - Backgrounds especiales
-  - Sonido raro para taps
-- Logros ridículos por progreso.
-- Animación simple de zoom in/out sobre la roca al tap.
-- Integración de inicio de sesión con Google Play Games (v2) al arrancar la app.
+- Phaser 3 para render y loop del juego.
+- Vite para desarrollo y build.
+- TypeScript para toda la logica.
+- Vitest para pruebas unitarias del motor.
+- Capacitor para ejecutar el build web como app Android nativa.
 
-## Estructura del repositorio
-
-- `/home/runner/work/rockvolution/rockvolution/app`: App Android (Jetpack Compose).
-- `/home/runner/work/rockvolution/rockvolution/gamecore`: Lógica principal del juego + pruebas unitarias.
-
-## Ejecutar pruebas de lógica
+## Como ejecutar
 
 ```bash
-cd /home/runner/work/rockvolution/rockvolution/gamecore
-gradle test
+npm install
+npm run dev
 ```
 
-## Captura de UI
+## Android (Capacitor)
 
-La captura de referencia de la interfaz está en:
+```bash
+npm run android:add
+npm run android:sync
+npm run android:open
+```
 
-`/home/runner/work/rockvolution/rockvolution/ui-screenshot.png`
+Flujo recomendado para Android:
+
+1. Ejecuta `npm run android:sync` para regenerar `dist` y copiar assets web a la app nativa.
+2. Abre Android Studio con `npm run android:open`.
+3. Ejecuta la app en emulador o dispositivo fisico desde Android Studio.
+
+## CI Android (GitHub Actions)
+
+Se agrego el workflow [android-ci.yml](.github/workflows/android-ci.yml), que en cada push/PR a development o master:
+
+1. Instala dependencias Node.
+2. Hace build web y sync de Capacitor.
+3. Compila APK debug con Gradle.
+4. Publica el artefacto rockvolution-debug-apk para descargar.
+
+## Scripts
+
+```bash
+npm run build
+npm run preview
+npm run test
+npm run cap:sync
+```
+
+## Estructura principal
+
+- `src/game/GameEngine.ts`: motor incremental (niveles, boosters, compras, logros).
+- `src/scenes/MainScene.ts`: escena jugable principal en Phaser.
+- `tests/GameEngine.test.ts`: pruebas del motor.
+- `android/`: proyecto Android generado por Capacitor.
+- `capacitor.config.ts`: configuracion nativa y webDir.
+
+## Notas
+
+- El legado Android/Kotlin/Gradle fue eliminado para dejar una sola base de codigo web.
