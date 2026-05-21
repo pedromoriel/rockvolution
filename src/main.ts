@@ -2,14 +2,18 @@ import Phaser from "phaser";
 import { MainScene } from "./scenes/MainScene";
 import "./styles.css";
 
+const getGameSize = () => ({
+  width: window.innerWidth,
+  height: window.innerHeight
+});
+
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   parent: "app",
   backgroundColor: "#101828",
-  width: 960,
-  height: 640,
+  ...getGameSize(),
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.RESIZE,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: [MainScene]
