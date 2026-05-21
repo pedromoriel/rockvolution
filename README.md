@@ -33,6 +33,18 @@ Flujo recomendado para Android:
 2. Abre Android Studio con `npm run android:open`.
 3. Ejecuta la app en emulador o dispositivo fisico desde Android Studio.
 
+### Build Android local (Java 17)
+
+Si tu build falla por versión de Java, ejecuta esto antes de compilar:
+
+```bash
+source ./set-java17.sh
+cd android
+./gradlew assembleDebug
+```
+
+El script detecta Java 17 en sdkman, update-alternatives o rutas comunes y exporta JAVA_HOME y PATH solo para esa terminal.
+
 ## CI Android (GitHub Actions)
 
 Se agrego el workflow [android-ci.yml](.github/workflows/android-ci.yml), que en cada push/PR a development o master:
