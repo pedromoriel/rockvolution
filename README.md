@@ -12,6 +12,8 @@ Rockvolution es ahora un juego 100% web con Phaser + TypeScript, empaquetado en 
 
 ## Como ejecutar
 
+Requisito: Node.js 22 o superior (Capacitor CLI 8 lo requiere).
+
 ```bash
 npm install
 npm run dev
