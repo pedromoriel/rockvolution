@@ -45,6 +45,15 @@ cd android
 
 El script detecta Java 17 en sdkman, update-alternatives o rutas comunes y exporta JAVA_HOME y PATH solo para esa terminal.
 
+### Nota sobre Java 17 y Capacitor
+> **¡Importante!** Algunos archivos `build.gradle` generados por Capacitor o sus dependencias pueden forzar `VERSION_21` aunque tu entorno use Java 17. El script `npm run fix-capacitor-java` corrige automáticamente todos los archivos relevantes (incluyendo `node_modules/@capacitor/android/capacitor/build.gradle`) tras cada sync/build, tanto en local como en CI. Si ves errores de "invalid source release: 21", ejecuta:
+>
+> ```bash
+> npm run fix-capacitor-java
+> ```
+>
+> Y luego recompila.
+
 ## CI Android (GitHub Actions)
 
 Se agrego el workflow [android-ci.yml](.github/workflows/android-ci.yml), que en cada push/PR a development o master:
